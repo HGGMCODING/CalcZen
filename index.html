@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CalcZen Web</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2025.7.3/core.js"></script>
+</head>
+<body>
+    <h2>CalcZen</h2>
+
+    <label for="expression">Enter math expression (e.g. 3 + 4 * sin(30)):</label><br>
+    <input type="text" id="expression" /><br><br>
+    <button id="calc-button">Calculate</button><br><br>
+    <p id="result"></p>
+
+    <h3>Converters</h3>
+    <select id="conversion-type">
+        <option value="cm_to_m">cm → m</option>
+        <option value="m_to_cm">m → cm</option>
+        <option value="kg_to_g">kg → g</option>
+        <option value="g_to_kg">g → kg</option>
+        <option value="km_to_m">km → m</option>
+        <option value="hour_to_min">hour → minute</option>
+    </select><br>
+    <input type="number" id="conversion-value" placeholder="Enter value"><br>
+    <button id="convert-button">Convert</button>
+    <p id="conversion-result"></p>
+
+    <py-script>
+from js import document
+import math
+
+def evaluate_expression(expr):
+    expr = expr.replace('^', '**')
+    expr = expr.replace('√', 'math.sqrt')
+    expr = expr.replace('sin', 'math.sin')
+    expr = expr.replace('cos', 'math.cos')
+    expr = expr.replace('tan', 'math.tan')
+    try:
+        result = eval(expr)
+    except Exception:
+        result = "Error"
+    return result
+
+def run_calculator(event):
+    expr = document.getElementById("expression").value
+    result = evaluate_expression(expr)
+    document.getElementById("result").innerText = f"Result: {result}"
+
+document.getElementById("calc-button").addEventListener("click", run_calculator)
+
+def convert(event):
+    value = float(document.getElementById("conversion-value").value)
+    conv_type = document.getElementById("conversion-type").value
+    result = ""
+    if conv_type == "cm_to_m":
+        result = value / 100
+    elif conv_type == "m_to_cm":
+        result = value * 100
+    elif conv_type == "kg_to_g":
+        result = value * 1000
+    elif conv_type == "g_to_kg":
+        result = value / 1000
+    elif conv_type == "km_to_m":
+        result = value * 1000
+    elif conv_type == "hour_to_min":
+        result = value * 60
+    document.getElementById("conversion-result").innerText = f"Result: {result}"
+
+document.getElementById("convert-button").addEventListener("click", convert)
+    </py-script>
+</body>
+</html>
