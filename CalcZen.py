@@ -115,10 +115,18 @@ def calculate_volume():
         messagebox.showinfo("Result", f"Volume of rectangular prism = {result}")
     else:
         messagebox.showinfo("Result", "We just support cube,rectangular prism")
+#---Help Menu---
+def help_how_to_use():
+    messagebox.showinfo("How to use","Press the number or enter the number and enter the operation to calculate")
+def help_web_CalcZen():
+    messagebox.showinfo("Web CalcZen","Find the html file via github:https://github.com/HGGMCODING/CalcZen")
+def help_About_us():
+    messagebox.showinfo("About us","Find us on youtube:https://www.youtube.com/@hgmmyt")
 # --- Menu Bar ---
 menu_bar = tk.Menu(root)
 convert_menu = tk.Menu(menu_bar, tearoff=0)
 shape_menu=tk.Menu(menu_bar,tearoff=0)
+help_menu=tk.Menu(menu_bar,tearoff=0)
 convert_menu.add_command(label="cm → m", command=convert_cm_to_m)
 convert_menu.add_command(label="m → cm", command=convert_m_to_cm)
 convert_menu.add_command(label="kg → g", command=convert_kg_to_g)
@@ -127,9 +135,13 @@ convert_menu.add_command(label="km → m", command=convert_km_to_m)
 convert_menu.add_command(label="hour → minute", command=convert_hour_to_minute)
 menu_bar.add_cascade(label="Convert", menu=convert_menu)
 menu_bar.add_cascade(label="Shape", menu=shape_menu)
+menu_bar.add_cascade(label="Help", menu=help_menu)
 shape_menu.add_command(label="Calculate Area", command=calculate_area)
 shape_menu.add_command(label="Calculate Perimeter", command=calculate_perimeter)
 shape_menu.add_command(label="Calculate Volume", command=calculate_volume)
+help_menu.add_command(label="How to use",command=help_how_to_use)
+help_menu.add_command(label="Web CalcZen",command=help_web_CalcZen)
+help_menu.add_command(label="About us ",command=help_About_us)
 root.config(menu=menu_bar)
 
 # --- Calculator Buttons ---
